@@ -7,6 +7,7 @@ Arguments:
     host:     The hostname to listen to. Set to 0.0.0.0 to listen on all
               interfaces. Defaults to 127.0.0.1
     port:     The TCP port to listen to.  Defaults to 5000
+    token:    The optional authentication token expected from client
     certfile: The optional path to a certificate file to enable TLS support
     keyfile:  The optional path to a key file to be used together with certfile
     password: The optional password to be used when loading the certificate chain
@@ -19,6 +20,9 @@ import ssl
 from typing import Any, Callable, Dict
 
 from aiohttp import web
+
+INSIGHTS_TOKEN_HEADER = "X-Insight-Token"
+AUTHORIZATION_HEADER = "Authorization"
 
 logger = logging.getLogger(__name__)
 routes = web.RouteTableDef()
@@ -40,17 +44,41 @@ async def webhook(request: web.Request):
 
     endpoint = request.match_info["endpoint"]
     headers = dict(request.headers)
-    headers.pop("Authorization", None)
-    headers.pop("X-Insight-Token", None)
+    headers.pop(AUTHORIZATION_HEADER, None)
+    headers.pop(INSIGHTS_TOKEN_HEADER, None)
 
     event = format_event(payload, endpoint, headers)
     await request.app["queue"].put(event)
     return web.Response(text=endpoint)
 
 
-async def main(queue: asyncio.Queue, args: Dict[str, Any]):
-    app = web.Application()
+def get_request_token(request: web.Request):
+    if INSIGHTS_TOKEN_HEADER in request.headers:
+        return request.headers[INSIGHTS_TOKEN_HEADER]
+    elif AUTHORIZATION_HEADER in request.headers:
+        scheme, _, token = request.headers[AUTHORIZATION_HEADER].strip().partition(" ")
+        if scheme == "Bearer":
+            return token
 
+
+@web.middleware
+async def authenticate(request: web.Request, handler: Callable):
+    request_token = get_request_token(request)
+    if request_token is None:
+        raise web.HTTPUnauthorized(reason="Missing authorization token")
+    if request_token != request.app["token"]:
+        raise web.HTTPUnauthorized(reason="Invalid authorization token")
+
+    return await handler(request)
+
+
+async def main(queue: asyncio.Queue, args: Dict[str, Any]):
+    middlewares = []
+    if args.get("token"):
+        middlewares = [authenticate]
+
+    app = web.Application(middlewares=middlewares)
+    app["token"] = args.get("token")
     app["queue"] = queue
     app.add_routes(routes)
 
