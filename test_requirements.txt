@@ -1,4 +1,8 @@
 -r requirements.txt
 pytest
 pytest-asyncio
+pytest-timeout
 aiohttp
+ansible
+requests
+ansible-rulebook
