@@ -37,6 +37,7 @@ def test_insights_source_sanity(run_rulebook):
     url = f"http://127.0.0.1:{port}/endpoint"
 
     env = os.environ.copy()
+    env["ANSIBLE_COLLECTIONS_PATH"] = TESTS_PATH + "/.collections"
     env["WH_PORT"] = str(port)
     env["SECRET"] = "secret"
 
