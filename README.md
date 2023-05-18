@@ -61,6 +61,7 @@ Prerequisties:
   hosts: localhost
   sources:
     - redhatinsights.eda.insights:
+        host: 0.0.0.0
         token: "{{ SECRET }}"
   rules:
     - name: match advisor recommendation event
@@ -94,7 +95,7 @@ Prerequisties:
         Has incident: {{ item.payload.has_incident | default("") }}
         Bundle: {{ ansible_eda.event.payload.bundle | default("") }}
         Created at: {{ ansible_eda.event.payload.timestamp | default("") }}
-    loop: "{{ ansible_eda.event.payload.events }}"
+    loop: "{{ ansible_eda.event.payload.events | default([]) }}"
 ```
 
 ## Development
