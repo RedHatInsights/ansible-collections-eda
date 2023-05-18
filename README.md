@@ -22,6 +22,10 @@ ansible-galaxy collection install redhatinsights.eda ansible-collections-eda
 ```
 
 
+To set up an integration with Red Hat Insights please follow
+[official documentation](https://access.redhat.com/documentation/en-us/red_hat_hybrid_cloud_console/2023/html/configuring_notifications_and_integrations_on_the_red_hat_hybrid_cloud_console/index).
+Use integration type "Event-Driven Ansible" from the dropdown.
+
 ## Usage
 
 ```yaml
