@@ -76,6 +76,7 @@ Prerequisties:
 # example_playbook.yaml
 ---
 - hosts: localhost
+  gather_facts: no
   tasks:
   - name: Create an incident
     servicenow.itsm.incident:
