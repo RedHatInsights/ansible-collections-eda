@@ -11,10 +11,16 @@ This collection contains the event source plugin for receiving events out of
 
 ## Installation
 
+From source:
 ```
 git clone https://github.com/RedHatInsights/ansible-collections-eda.git
 ansible-galaxy collection install -U ./ansible-collections-eda
 ```
+From Ansible Galaxy:
+```
+ansible-galaxy collection install redhatinsights.eda ansible-collections-eda
+```
+
 
 ## Usage
 
