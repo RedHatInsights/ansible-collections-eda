@@ -5,7 +5,7 @@
 
 ## Description
 
-This collection contains event source plugin for receving events out of
+This collection contains the event source plugin for receiving events out of
 [Red Hat Insights](https://console.redhat.com/insights).
 
 
@@ -39,20 +39,20 @@ To run an example execute:
 SECRET=mysecret ansible-rulebook -r example_rulebook.yaml -v -E="SECRET" -i inventory.yaml
 ```
 and set the `SECRET` value to your secret token value.
-Use the secet value when setting up Ansible integration on
+Use the secret value when setting up Ansible integration on
 [Red Hat Hybrid Console](https://console.redhat.com/settings/integrations).
 
-For inventory you might create a file `inventory.yaml` containing:
+For inventory, you might create a file `inventory.yaml` containing:
 ```
 all:
 ```
 
 
-### Advisor Recommendation to ServicNow Incident
+### Advisor Recommendation to ServiceNow Incident
 
-Rulebook example of creating ServiceNow Incident out of Insights Advisor recommendation events.
+Rulebook example of creating a ServiceNow Incident out of Insights Advisor recommendation events.
 
-Prerequisties:
+Prerequisites:
 * `servicenow.itsm` collection installed
 
 ```yaml
