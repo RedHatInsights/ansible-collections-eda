@@ -96,6 +96,13 @@ Prerequisites:
       action:
         run_playbook:
           name: snow_vulnerability_playbook.yaml
+    - name: match compliance below threshold
+      condition:
+        event.payload.application == "compliance"
+        and event.payload.event_type == "compliance-below-threshold"
+      action:
+        run_playbook:
+          name: snow_compliance_playbook.yaml
 ```
 
 Playbooks:
@@ -106,7 +113,7 @@ Playbooks:
 - hosts: localhost
   gather_facts: no
   tasks:
-  - name: Create an incident
+  - name: Create an Advisor incident
     servicenow.itsm.incident:
       instance:
         host: https://instance_id.service-now.com
@@ -118,10 +125,9 @@ Playbooks:
         Account id: {{ ansible_eda.event.payload.account_id | default("") }}
         Affected system: {{ ansible_eda.event.payload.context.display_name | default("") }}
         Event type: {{ ansible_eda.event.payload.event_type | default("") }}
-        Rule url : {{ item.payload.rule_url | default("") }}
-        Reboot required: {{ item.payload.reboot_required | default("") }}
-        Total risk: {{ item.payload.total_risk | default("") }}
-        Has incident: {{ item.payload.has_incident | default("") }}
+        Policy: {{ item.payload.policy_name | default("") }} [{{ item.payload.policy_id | default("") }}]
+        Policy threshold: {{ item.payload.policy_threshold | default("") }}
+        Compliance score: {{ item.payload.compliance_score | default("") }}
         Bundle: {{ ansible_eda.event.payload.bundle | default("") }}
         Created at: {{ ansible_eda.event.payload.timestamp | default("") }}
     loop: "{{ ansible_eda.event.payload.events | default([]) }}"
@@ -132,7 +138,7 @@ Playbooks:
 - hosts: localhost
   gather_facts: no
   tasks:
-  - name: Create an incident
+  - name: Create a Vulnerability incident
     servicenow.itsm.incident:
       instance:
         host: https://instance_id.service-now.com
@@ -150,6 +156,31 @@ Playbooks:
         Impact id: {{ item.payload.impact_id | default("") }}
         Publish date: {{ item.payload.publish_date | default("") }}
         CVE url: https://access.redhat.com/security/cve/{{ item.payload.reported_cve | default('') }}
+        Bundle: {{ ansible_eda.event.payload.bundle | default("") }}
+        Created at: {{ ansible_eda.event.payload.timestamp | default("") }}
+    loop: "{{ ansible_eda.event.payload.events | default([]) }}"
+```
+```yaml
+# snow_compliance_playbook.yaml
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Create a Compliance incident
+    servicenow.itsm.incident:
+      instance:
+        host: https://instance_id.service-now.com
+        username: user
+        password: pass
+      state: new
+      short_description: "{{ ansible_eda.event.payload.application | upper }}: System is non compliant to SCAP policy"
+      description: |-
+        Account id: {{ ansible_eda.event.payload.account_id | default("") }}
+        Affected system: {{ ansible_eda.event.payload.context.display_name | default("") }}
+        Event type: {{ ansible_eda.event.payload.event_type | default("") }}
+        Policy: {{ ansible_eda.event.payload.policy_name | default("") }} [{{ ansible_eda.event.payload.policy_name | default("id") }}]
+        Policy threshold: {{ ansible_eda.event.payload.policy_threshold | default("") }}
+        Compliance score: {{ ansible_eda.event.payload.compliance_score | default("") }}
         Bundle: {{ ansible_eda.event.payload.bundle | default("") }}
         Created at: {{ ansible_eda.event.payload.timestamp | default("") }}
     loop: "{{ ansible_eda.event.payload.events | default([]) }}"
