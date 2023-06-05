@@ -118,8 +118,5 @@ if __name__ == "__main__":
             print(event)
 
     asyncio.run(
-        main(
-            MockQueue(),
-            { "port": 2345 },
-        )
+        main(MockQueue(), {"port": 2345})
     )

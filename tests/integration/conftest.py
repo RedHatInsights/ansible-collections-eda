@@ -4,6 +4,7 @@ import subprocess
 import pytest
 from . import TESTS_PATH
 
+
 @pytest.fixture(scope="function")
 def run_rulebook(subprocess_teardown):
     def _run_rulebook(rules, env, envvars=""):
@@ -24,7 +25,6 @@ def run_rulebook(subprocess_teardown):
         return proc
 
     return _run_rulebook
-
 
 
 @pytest.fixture(scope="function")

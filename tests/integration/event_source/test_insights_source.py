@@ -23,7 +23,6 @@ def wait_for_events(proc: subprocess.Popen, timeout: float = 3.0):
             raise TimeoutError("Timeout waiting for events")
 
 
-
 def test_insights_source_sanity(run_rulebook):
     """
     Check successful execution, response and shutdown
@@ -56,7 +55,6 @@ def test_insights_source_sanity(run_rulebook):
     except subprocess.TimeoutExpired:
         proc.terminate()
         stdout, _unused_stderr = proc.communicate()
-
 
     assert "Rule fired successfully" in stdout.decode()
     assert "eventdata" in stdout.decode()
@@ -98,7 +96,6 @@ def test_insights_source_unauthorized(run_rulebook):
     except subprocess.TimeoutExpired:
         proc.terminate()
         stdout, _unused_stderr = proc.communicate()
-
 
     assert "Rule fired successfully" not in stdout.decode()
     assert "eventdata" not in stdout.decode()
