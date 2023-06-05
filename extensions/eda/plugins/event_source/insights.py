@@ -56,7 +56,7 @@ def get_request_token(request: web.Request):
     if INSIGHTS_TOKEN_HEADER in request.headers:
         return request.headers[INSIGHTS_TOKEN_HEADER]
     elif AUTHORIZATION_HEADER in request.headers:
-        scheme, _, token = request.headers[AUTHORIZATION_HEADER].strip().partition(" ")
+        scheme, _sep, token = request.headers[AUTHORIZATION_HEADER].strip().partition(" ")
         if scheme == "Bearer":
             return token
 
