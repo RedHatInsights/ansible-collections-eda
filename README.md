@@ -8,26 +8,24 @@ This collection contains the event source plugin for receiving events out of
 [Red Hat Insights](https://console.redhat.com/insights).
 
 
-## Installation
+## Requirements
 
-From source:
+* [Ansible Rulebook](https://ansible-rulebook.readthedocs.io/en/stable/installation.html) >=0.13.0
+
+Install dependencies required by the collection (adjust path to collection if necessary):
 ```
-git clone https://github.com/RedHatInsights/ansible-collections-eda.git
-ansible-galaxy collection install -U ./ansible-collections-eda
-```
-From Ansible Galaxy:
-```
-ansible-galaxy collection install redhatinsights.eda ansible-collections-eda
+pip3 install -r ~/.ansible/collections/ansible_collections/redhatinsights/eda/requirements.txt
 ```
 
+
+## Usage
 
 To set up an integration with Red Hat Insights please follow
 [official documentation](https://access.redhat.com/documentation/en-us/red_hat_hybrid_cloud_console/2023/html/configuring_notifications_and_integrations_on_the_red_hat_hybrid_cloud_console/index).
 Use integration type "Event-Driven Ansible" from the dropdown.
 
-## Usage
-
 ```yaml
+# rulebook
   sources:
     - redhatinsights.eda.insights:
         host:     # hostname to listen to. (default: 127.0.0.1)
@@ -39,8 +37,6 @@ Use integration type "Event-Driven Ansible" from the dropdown.
 ```
 
 ## Examples
-
-Prerequisite for running examples is installed [Ansible Rulebook](https://ansible-rulebook.readthedocs.io/en/stable/installation.html).
 
 
 To run an example execute:
@@ -189,3 +185,8 @@ Playbooks:
 
 See [CONTRIBUTING](https://github.com/RedHatInsights/ansible-collections-eda/CONTRIBUTING.md) document.
 
+## License
+
+Apache 2.0
+
+See [LICENSE](https://github.com/RedHatInsights/ansible-collections-eda/LICENSE) to see the full text.
