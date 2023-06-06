@@ -1,9 +1,8 @@
 # Event-Driven Ansible for Red Hat Insights
 
-`redhatinsights.eda.insights`
-
-
-## Description
+[![Code of conduct](https://img.shields.io/badge/code%20of%20conduct-Ansible-silver.svg)](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html)
+[![CI](https://github.com/RedHatInsights/ansible-collections-eda/actions/workflows/test.yaml/badge.svg)](https://github.com/RedHatInsights/ansible-collections-eda/actions/workflows/test.yaml)
+[![Integration tests](https://github.com/RedHatInsights/ansible-collections-eda/actions/workflows/integration-tests.yaml/badge.svg)](https://github.com/RedHatInsights/ansible-collections-eda/actions/workflows/integration-tests.yaml)
 
 This collection contains the event source plugin for receiving events out of
 [Red Hat Insights](https://console.redhat.com/insights).
