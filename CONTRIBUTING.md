@@ -26,3 +26,16 @@ Run tests:
 # source venv/bin/activate
 pytest
 ```
+
+## Publishing
+
+To publish a new version of the collection increase the `version` within [`galaxy.yml`](galaxy.yml)
+creating a pull request. Versions must follow [Semantic Versioninig](https://semver.org/)
+guidelines.
+
+The collection is published to [Ansible Galaxy](https://galaxy.ansible.com/redhatinsights/eda)
+automatically with GitHub action [tag-and-release](.github/workflows/tag-and-release.yaml).
+The action tags latest commit with a version tag from [`galaxy.yml`](galaxy.yml)'s version value, builds the collection and uploads it. Version tags follow the format: `vX.Y.Z`.
+
+Note: that the GitHub project requires a valid Ansible Galaxy API Key set as `ANSIBLE_GALAXY_APIKEY`
+by an administrator.
