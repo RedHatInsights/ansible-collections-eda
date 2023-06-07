@@ -4,7 +4,7 @@ Please review [Ansible Community Guide](https://docs.ansible.com/ansible/devel/c
 and [Developing collections](https://docs.ansible.com/ansible/devel/dev_guide/developing_collections.html#contributing-to-collections)
 guide prior to contributing to this collection.
 
-# Environment setup
+## Environment setup
 
 Create virtualenv and install dependencies:
 ```
@@ -13,7 +13,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-# Running tests
+## Running tests
 
 Install test dependencies:
 ```
