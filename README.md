@@ -184,10 +184,10 @@ Playbooks:
 
 ## Contributing
 
-See [CONTRIBUTING](https://github.com/RedHatInsights/ansible-collections-eda/CONTRIBUTING.md) document.
+See [CONTRIBUTING](https://github.com/RedHatInsights/ansible-collections-eda/blob/main/CONTRIBUTING.md) document.
 
 ## License
 
 Apache 2.0
 
-See [LICENSE](https://github.com/RedHatInsights/ansible-collections-eda/LICENSE) to see the full text.
+See [LICENSE](https://github.com/RedHatInsights/ansible-collections-eda/blob/main/LICENSE) to see the full text.
