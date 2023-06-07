@@ -63,3 +63,4 @@ build_ignore:
 - venv
 - .pytest_cache
 - tests/integration/.collections
+- tests/output
