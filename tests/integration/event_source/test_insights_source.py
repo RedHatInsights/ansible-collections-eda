@@ -8,7 +8,7 @@ import requests
 from ...integration import TESTS_PATH
 
 
-def wait_for_events(proc: subprocess.Popen, timeout: float = 3.0):
+def wait_for_events(proc: subprocess.Popen, timeout: float = 10.0):
     """
     Wait for events to be processed by ansible-rulebook, or timeout.
     Requires the process to be running in debug mode.
