@@ -1,0 +1,57 @@
+name: Tag on version change
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  version_tag:
+    name: Version tag if not exist
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.tagging.outputs.version }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Tag if not exist
+        id: tagging
+        run: |
+          version=$(grep -P -o "(?<=^version: )\d+\.\d+\.\d+" galaxy.yml)
+          tag=v${version}
+          git fetch --tags
+          if [[ "$(git tag -l "${tag}")" == "" ]]; then
+            git tag "${tag}"
+            git push origin "${tag}"
+            echo "version=$version" >> $GITHUB_OUTPUT
+          else
+            echo "Tag exist, skipping release"
+          fi
+  release:
+    name: Release if tagged
+    needs: version_tag
+    if: needs.version_tag.outputs.version != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          path: ansible_collections/redhatinsights/eda
+
+      - name: Install ansible-base
+        run: pip install ansible
+
+      - name: Run sanity tests
+        # symlinks test are skipped, as the tests/integration/.collections
+        # has a directory symlink to self-link for a local testing.
+        working-directory: ansible_collections/redhatinsights/eda
+        run: ansible-test sanity --skip-test symlinks
+
+      - name: Build
+        working-directory: ansible_collections/redhatinsights/eda
+        run: ansible-galaxy collection build
+
+      - name: Publish to Galaxy
+        working-directory: ansible_collections/redhatinsights/eda
+        run:
+          ansible-galaxy collection publish --api-key="${{ secrets.ANSIBLE_GALAXY_APIKEY }}" redhatinsights-eda-${{ needs.version_tag.outputs.version }}.tar.gz
