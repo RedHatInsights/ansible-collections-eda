@@ -23,7 +23,7 @@ def wait_for_events(proc: subprocess.Popen, timeout: float = 10.0):
             raise TimeoutError("Timeout waiting for events")
 
 
-def test_insights_source_sanity(run_rulebook):
+def test_insights_source_sanity(run_rulebook, current_collection):
     """
     Check successful execution, response and shutdown
     of the Insights source plugin.
@@ -37,7 +37,7 @@ def test_insights_source_sanity(run_rulebook):
     url = f"http://127.0.0.1:{port}/endpoint"
 
     env = os.environ.copy()
-    env["ANSIBLE_COLLECTIONS_PATH"] = TESTS_PATH + "/.collections"
+    env["ANSIBLE_COLLECTIONS_PATH"] = str(current_collection)
     env["WH_PORT"] = str(port)
     env["SECRET"] = "secret"
 
@@ -61,7 +61,7 @@ def test_insights_source_sanity(run_rulebook):
     assert proc.returncode == 0
 
 
-def test_insights_source_unauthorized(run_rulebook):
+def test_insights_source_unauthorized(run_rulebook, current_collection):
     """
     Check successful execution, response and shutdown
     of the Insights source plugin.
@@ -70,7 +70,7 @@ def test_insights_source_unauthorized(run_rulebook):
     url = f"http://127.0.0.1:{port}/endpoint"
 
     env = os.environ.copy()
-    env["ANSIBLE_COLLECTIONS_PATH"] = TESTS_PATH + "/.collections"
+    env["ANSIBLE_COLLECTIONS_PATH"] = str(current_collection)
     env["WH_PORT"] = str(port)
     env["SECRET"] = "secret"
 

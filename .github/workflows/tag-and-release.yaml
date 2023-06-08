@@ -42,10 +42,8 @@ jobs:
         run: pip install ansible
 
       - name: Run sanity tests
-        # symlinks test are skipped, as the tests/integration/.collections
-        # has a directory symlink to self-link for a local testing.
         working-directory: ansible_collections/redhatinsights/eda
-        run: ansible-test sanity --skip-test symlinks
+        run: ansible-test sanity
 
       - name: Build
         working-directory: ansible_collections/redhatinsights/eda
