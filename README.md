@@ -28,7 +28,7 @@ Use integration type "Event-Driven Ansible" from the dropdown.
 # rulebook
   sources:
     - redhatinsights.eda.insights:
-        host:     # hostname to listen to. (default: 127.0.0.1)
+        host:     # hostname to listen to. (default: 0.0.0.0)
         port:     # TCP port to listen to. (default: 5000)
         token:    # secret token.
         certfile: # (optional) path to a certificate file to enable TLS support
@@ -69,7 +69,6 @@ Prerequisites:
   hosts: localhost
   sources:
     - redhatinsights.eda.insights:
-        host: 0.0.0.0
         token: "{{ SECRET }}"
   rules:
     - name: match advisor recommendation event

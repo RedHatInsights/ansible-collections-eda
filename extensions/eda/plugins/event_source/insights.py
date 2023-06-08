@@ -5,7 +5,7 @@ An ansible-rulebook event source module for receiving Red Hat Insights events.
 
 Arguments:
     host:     The hostname to listen to. Set to 0.0.0.0 to listen on all
-              interfaces. Defaults to 127.0.0.1
+              interfaces. Defaults to 0.0.0.0
     port:     The TCP port to listen to.  Defaults to 5000
     token:    The optional authentication token expected from client
     certfile: The optional path to a certificate file to enable TLS support
@@ -98,7 +98,7 @@ async def main(queue: asyncio.Queue, args: Dict[str, Any]):
     await runner.setup()
     site = web.TCPSite(
         runner,
-        args.get("host") or "localhost",
+        args.get("host") or "0.0.0.0",
         args.get("port") or 5000,
         ssl_context=context,
     )
