@@ -1,3 +1,4 @@
+from pathlib import Path
 import subprocess
 
 import pytest
@@ -35,3 +36,19 @@ def subprocess_teardown():
 
     yield _teardown
     [proc.terminate() for proc in processes]
+
+
+@pytest.fixture(scope="function")
+def current_collection(tmp_path):
+    """
+    Symlink current collection in the temporary directory to be used within
+    integration tests, set via ANSIBLE_COLLECTIONS_PATH env var.
+    """
+    namespace = tmp_path / "ansible_collections" / "redhatinsights"
+    namespace.mkdir(parents=True)
+
+    project_path = Path(TESTS_PATH) / ".." / ".."
+    collection = namespace / "eda"
+    collection.symlink_to(project_path.resolve(), target_is_directory=True)
+
+    return tmp_path.resolve()
