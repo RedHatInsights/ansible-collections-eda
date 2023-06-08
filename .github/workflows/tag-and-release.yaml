@@ -38,8 +38,8 @@ jobs:
         with:
           path: ansible_collections/redhatinsights/eda
 
-      - name: Install ansible-base
-        run: pip install ansible
+      - name: Install ansible-base and galaxy-importer
+        run: pip install ansible galaxy-importer
 
       - name: Run sanity tests
         working-directory: ansible_collections/redhatinsights/eda
@@ -48,6 +48,11 @@ jobs:
       - name: Build
         working-directory: ansible_collections/redhatinsights/eda
         run: ansible-galaxy collection build
+
+      - name: Run import checks
+        working-directory: ansible_collections/redhatinsights/eda
+        run:
+          python -m galaxy_importer.main redhatinsights-eda-${{ needs.version_tag.outputs.version }}.tar.gz
 
       - name: Publish to Galaxy
         working-directory: ansible_collections/redhatinsights/eda
