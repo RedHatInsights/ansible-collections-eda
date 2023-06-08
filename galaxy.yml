@@ -68,3 +68,4 @@ build_ignore:
   - .pytest_cache
   - tests/integration/.collections
   - tests/output
+  - .github/
