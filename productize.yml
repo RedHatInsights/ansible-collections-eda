@@ -1,0 +1,41 @@
+---
+- name: "Build Hub Collection"
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create build directory
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: build
+      register: builddir
+
+    - name: Copy build code
+      ansible.posix.synchronize:
+        src: ./
+        dest: "{{ builddir.path }}"
+        rsync_opts:
+          - "--exclude=.git"
+          - "--exclude=venv"
+          - "--exclude=.tox"
+          - "--exclude=.ruff_cache"
+
+    - name: Create Hub Galaxy by merging galaxy.hub.yml
+      ansible.builtin.copy:
+        dest: "{{ builddir.path }}/galaxy.yml"
+        mode: "0644"
+        content: "{{
+          lookup('ansible.builtin.file', builddir.path + '/galaxy.yml') | from_yaml
+          | combine(lookup('ansible.builtin.file', builddir.path + '/galaxy.hub.yml') | from_yaml,
+                    recursive=True)
+          | to_nice_yaml }}"
+
+    - name: Replace usage in README.md
+      ansible.builtin.replace:
+        path: "{{ builddir.path }}/README.md"
+        regexp: 'redhatinsights\.eda\.insights'
+        replace: 'redhat.insights_eda.insights'
+
+    - name: Build collection
+      ansible.builtin.command: 'ansible-galaxy collection build "{{ builddir.path }}"'
+      register: collection_build
+      changed_when: collection_build.rc != 0
