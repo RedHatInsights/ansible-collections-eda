@@ -54,6 +54,12 @@ jobs:
         run:
           python -m galaxy_importer.main redhatinsights-eda-${{ needs.version_tag.outputs.version }}.tar.gz
 
+      - name: Upload build
+        uses: actions/upload-artifact@v3
+        with:
+          name: redhatinsights-eda-${{ needs.version_tag.outputs.version }}.tar.gz
+          path: redhatinsights-eda-${{ needs.version_tag.outputs.version }}.tar.gz
+
       - name: Publish to Galaxy
         working-directory: ansible_collections/redhatinsights/eda
         run:
