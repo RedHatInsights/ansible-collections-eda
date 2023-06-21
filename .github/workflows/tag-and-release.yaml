@@ -59,6 +59,7 @@ jobs:
 
       - name: Upload build
         uses: actions/upload-artifact@v3
+        working-directory: ansible_collections/redhatinsights/eda
         with:
           name: redhatinsights-eda-${{ needs.version_tag.outputs.version }}.tar.gz
           path: redhatinsights-eda-${{ needs.version_tag.outputs.version }}.tar.gz
@@ -79,6 +80,7 @@ jobs:
 
       - name: Upload build for hub
         uses: actions/upload-artifact@v3
+        working-directory: ansible_collections/redhatinsights/eda
         with:
           name: redhat-insights_eda-${{ needs.version_tag.outputs.version }}.tar.gz
           path: redhat-insights_eda-${{ needs.version_tag.outputs.version }}.tar.gz
