@@ -35,6 +35,12 @@
         regexp: 'redhatinsights\.eda\.insights'
         replace: 'redhat.insights_eda.insights'
 
+    - name: Replace requirements install in README.md
+      ansible.builtin.replace:
+        path: "{{ builddir.path }}/README.md"
+        regexp: '/ansible_collections/redhatinsights/eda/'
+        replace: '/ansible_collections/redhat/insights_eda/'
+
     - name: Build collection
       ansible.builtin.command: 'ansible-galaxy collection build "{{ builddir.path }}"'
       register: collection_build
