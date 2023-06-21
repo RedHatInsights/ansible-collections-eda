@@ -18,6 +18,7 @@
           - "--exclude=venv"
           - "--exclude=.tox"
           - "--exclude=.ruff_cache"
+          - "--exclude=*.gz"
 
     - name: Create Hub Galaxy by merging galaxy.hub.yml
       ansible.builtin.copy:
