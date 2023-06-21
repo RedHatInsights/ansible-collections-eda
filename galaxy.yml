@@ -70,3 +70,5 @@ build_ignore:
   - .tox
   - tests/output
   - .github/
+  - galaxy.hub.yml
+  - productize.yml

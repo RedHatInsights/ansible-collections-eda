@@ -1,0 +1,5 @@
+# Contents of this file are merged with galaxy.yml to build collection
+# for Automation Hub
+namespace: redhat
+name: insights_eda
+issues: https://issues.redhat.com/projects/EVNT/issues

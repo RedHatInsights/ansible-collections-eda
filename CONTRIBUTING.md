@@ -39,3 +39,13 @@ The action tags latest commit with a version tag from [`galaxy.yml`](galaxy.yml)
 
 Note: that the GitHub project requires a valid Ansible Galaxy API Key set as `ANSIBLE_GALAXY_APIKEY`
 by an administrator.
+
+### Building for Automation Hub
+
+To build the collection for Automation Hub run playbook `productize.yml` from the project root.
+The playbook would build a collection tar used for publishing to Automation Hub
+under the namespace `redhat` and name `insights_eda`.
+
+```
+ansible-playbook productize.yml
+```
