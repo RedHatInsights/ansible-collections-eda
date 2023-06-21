@@ -66,6 +66,7 @@ build_ignore:
   - .gitignore
   - venv
   - .pytest_cache
-  - tests/integration/.collections
+  - .ruff_cache
+  - .tox
   - tests/output
   - .github/
