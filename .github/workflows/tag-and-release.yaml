@@ -41,9 +41,6 @@ jobs:
       - name: Install ansible-base and galaxy-importer
         run: pip install ansible galaxy-importer
 
-      - name: Install ansible.posix
-        run: ansible-galaxy collection install ansible.posix
-
       - name: Run sanity tests
         working-directory: ansible_collections/redhatinsights/eda
         run: ansible-test sanity
@@ -67,6 +64,32 @@ jobs:
         working-directory: ansible_collections/redhatinsights/eda
         run:
           ansible-galaxy collection publish --api-key="${{ secrets.ANSIBLE_GALAXY_APIKEY }}" redhatinsights-eda-${{ needs.version_tag.outputs.version }}.tar.gz
+
+      - name: Build for Automation Hub
+        working-directory: ansible_collections/redhatinsights/eda
+        run: ansible-playbook productize.yml
+
+      - name: Run import checks for hub collection
+        working-directory: ansible_collections/redhatinsights/eda
+        run:
+          python -m galaxy_importer.main redhat-insights_eda-${{ needs.version_tag.outputs.version }}.tar.gz
+
+  build_for_hub:
+    name: Build for Automation Hub
+    needs: [version_tag, release]
+    if: needs.version_tag.outputs.version != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          path: ansible_collections/redhatinsights/eda
+
+      - name: Install ansible-base and galaxy-importer
+        run: pip install ansible galaxy-importer
+
+      - name: Install ansible.posix
+        run: ansible-galaxy collection install ansible.posix
 
       - name: Build for Automation Hub
         working-directory: ansible_collections/redhatinsights/eda
