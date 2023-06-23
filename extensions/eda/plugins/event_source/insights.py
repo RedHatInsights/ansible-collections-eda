@@ -74,8 +74,7 @@ def _get_request_token(request: web.Request) -> Union[None, str]:
 
 
 @web.middleware
-async def authenticate(request: web.Request, handler: Callable) -> web.Response:
-    """Middleware for authentication."""
+async def _authenticate(request: web.Request, handler: Callable) -> web.Response:
     request_token = _get_request_token(request)
     if request_token is None:
         raise web.HTTPUnauthorized(reason="Missing authorization token")
@@ -89,7 +88,7 @@ async def main(queue: asyncio.Queue, args: Dict[str, Any]) -> None:
     """Entrypoint."""
     middlewares = []
     if args.get("token"):
-        middlewares = [authenticate]
+        middlewares = [_authenticate]
 
     app = web.Application(middlewares=middlewares)
     app["token"] = args.get("token")
