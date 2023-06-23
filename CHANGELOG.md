@@ -1,5 +1,9 @@
 # Event-Driven Ansible for Red Hat Insights Changes
 
+## [0.3.3]
+### Added
+ - docstrings according to Numpy guidelines
+
 ## [0.3.0]
 ### Fixed
  - bind to all interfaces by default
