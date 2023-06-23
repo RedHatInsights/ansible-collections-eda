@@ -45,7 +45,24 @@ def _format_event(
 
 @routes.post(r"/{endpoint:.*}")
 async def webhook(request: web.Request) -> web.Response:
-    """Event POST handler."""
+    """Event POST handler.
+
+    Parameters
+    ----------
+    request : web.Request
+        POST request.
+
+    Returns
+    -------
+    web.Response
+        Responses with 200 on succesful event procecing and returns
+        endoint name used to call this API.
+
+    Raises
+    ------
+    HTTPBadRequest
+        If the event is incorrectly formatted to JSON.
+    """
     try:
         payload = await request.json()
     except ValueError as ex:
@@ -85,7 +102,22 @@ async def _authenticate(request: web.Request, handler: Callable) -> web.Response
 
 
 async def main(queue: asyncio.Queue, args: Dict[str, Any]) -> None:
-    """Entrypoint."""
+    """Entrypoint.
+
+    Parameters
+    ----------
+    queue : asyncio.Queue
+        Queue where the received events would be put for processing
+        by Ansible Rulebook.
+    args : Dict[str, Any]
+        Configuration arguments set within rulebook for this EDA source.
+        See full list at the top.
+
+    Raises
+    ------
+    Exception
+        If the configured certificate could not be loaded.
+    """
     middlewares = []
     if args.get("token"):
         middlewares = [_authenticate]
