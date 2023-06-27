@@ -14,14 +14,11 @@ Arguments:
 
 """
 
-# disable typing ruff checks to support older Python versions
-# ruff: noqa: UP006 UP007 UP035
-
 import asyncio
 import logging
 import ssl
 from collections.abc import Callable
-from typing import Any, Dict, Union
+from typing import Any
 
 from aiohttp import web
 
@@ -33,10 +30,10 @@ routes = web.RouteTableDef()
 
 
 def _format_event(
-        payload: Dict[str, Any],
+        payload: dict[str, Any],
         endpoint: str,
-        headers: Dict[str, str],
-) -> Dict:
+        headers: dict[str, str],
+) -> dict:
     return {
         "payload": payload,
         "meta": {"endpoint": endpoint, "headers": headers},
@@ -78,7 +75,7 @@ async def webhook(request: web.Request) -> web.Response:
     return web.Response(text=endpoint)
 
 
-def _get_request_token(request: web.Request) -> Union[None, str]:
+def _get_request_token(request: web.Request) -> None | str:
     if INSIGHTS_TOKEN_HEADER in request.headers:
         return request.headers[INSIGHTS_TOKEN_HEADER]
     if AUTHORIZATION_HEADER in request.headers:
@@ -101,7 +98,7 @@ async def _authenticate(request: web.Request, handler: Callable) -> web.Response
     return await handler(request)
 
 
-async def main(queue: asyncio.Queue, args: Dict[str, Any]) -> None:
+async def main(queue: asyncio.Queue, args: dict[str, Any]) -> None:
     """Entrypoint.
 
     Parameters
@@ -109,7 +106,7 @@ async def main(queue: asyncio.Queue, args: Dict[str, Any]) -> None:
     queue : asyncio.Queue
         Queue where the received events would be put for processing
         by Ansible Rulebook.
-    args : Dict[str, Any]
+    args : dict[str, Any]
         Configuration arguments set within rulebook for this EDA source.
         See full list at the top.
 
