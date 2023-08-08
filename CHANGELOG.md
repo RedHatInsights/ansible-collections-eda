@@ -1,5 +1,9 @@
 # Event-Driven Ansible for Red Hat Insights Changes
 
+## [1.1.0]
+
+Drop support for Python 3.8 and 3.9.
+
 ## [1.0.0]
 
 GA version.
