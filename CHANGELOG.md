@@ -1,5 +1,14 @@
 # Event-Driven Ansible for Red Hat Insights Changes
 
+## [1.2.0]
+
+### Added
+ - extension metadata for displaying on Automation Hub
+
+### Fixed
+ - support for Python 3.8+ (added back)
+ - Python annotation import from `__future__`
+
 ## [1.1.1]
 
 Readme update with Python version requirements.
