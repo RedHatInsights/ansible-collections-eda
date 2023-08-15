@@ -10,7 +10,7 @@ This collection contains the event source plugin for receiving events out of
 
 ## Requirements
 
-* Python >= 3.10
+* Python >= 3.8
 * [Ansible Rulebook](https://ansible-rulebook.readthedocs.io/en/stable/installation.html) >=0.13.0
 
 Install dependencies required by the collection (adjust path to collection if necessary):
