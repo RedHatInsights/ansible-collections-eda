@@ -19,10 +19,13 @@ from __future__ import annotations
 import asyncio
 import logging
 import ssl
-from collections.abc import Callable
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from aiohttp import web
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
 
 INSIGHTS_TOKEN_HEADER = "X-Insight-Token"  # noqa: S105
 AUTHORIZATION_HEADER = "Authorization"
