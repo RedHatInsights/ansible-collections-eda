@@ -33,7 +33,7 @@ To publish a new version of the collection increase the `version` within [`galax
 creating a pull request. Versions must follow [Semantic Versioninig](https://semver.org/)
 guidelines.
 
-The collection is published to [Ansible Galaxy](https://galaxy.ansible.com/redhatinsights/eda)
+The collection is published to [Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/redhatinsights/eda/)
 automatically with GitHub action [tag-and-release](.github/workflows/tag-and-release.yaml).
 The action tags latest commit with a version tag from [`galaxy.yml`](galaxy.yml)'s version value, builds the collection and uploads it. Version tags follow the format: `vX.Y.Z`.
 
