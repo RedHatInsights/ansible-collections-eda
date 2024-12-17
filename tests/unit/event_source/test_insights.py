@@ -1,6 +1,7 @@
 import asyncio
 import pytest
 import aiohttp
+from aiohttp.client_exceptions import ClientConnectorError
 
 from extensions.eda.plugins.event_source.insights import main as insights_main
 
@@ -12,9 +13,23 @@ async def start_server(queue, args):
 async def post_code(server_task, args, payload, headers=None):
     url = f'http://{args["host"]}:{args["port"]}/endpoint'
 
+    tries = 20
+    ex = None
     async with aiohttp.ClientSession() as session:
-        async with session.post(url, json=payload, headers=headers):
-            pass
+        while tries > 0:
+            try:
+                await session.post(url, json=payload, headers=headers)
+            except ClientConnectorError as e:
+                ex = e
+                await asyncio.sleep(0.1)
+            else:
+                ex = None
+                break
+            finally:
+                tries -= 1
+
+    if ex is not None:
+        raise ex  # pylint: disable=raising-bad-type
 
     server_task.cancel()
 
