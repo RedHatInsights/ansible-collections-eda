@@ -27,7 +27,7 @@ async def cancel_code(server_task):
 async def test_cancel():
     queue = asyncio.Queue()
 
-    args = {"host": "127.0.0.1", "port": 8001}
+    args = {"host": "localhost", "port": 8001}
     plugin_task = asyncio.create_task(start_server(queue, args))
     cancel_task = asyncio.create_task(cancel_code(plugin_task))
 
@@ -47,7 +47,7 @@ async def test_cancel():
 async def test_post_endpoint(token, auth_header, request):
     queue = asyncio.Queue()
 
-    args = {"host": "127.0.0.1", "port": 8000 + (hash(request.node.callspec.id) % 1000)}
+    args = {"host": "localhost", "port": 8000 + (hash(request.node.callspec.id) % 1000)}
     if token:
         args["token"] = token
 
