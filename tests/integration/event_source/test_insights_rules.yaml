@@ -9,7 +9,7 @@
       condition: event.payload.eventdata == "insights"
       action:
         debug:
-          msg: "Rule fired successfully"
+          msg: "Rule fired successfully: {{event}}"
 
     - name: shutdown
       condition: event.payload.shutdown is defined
