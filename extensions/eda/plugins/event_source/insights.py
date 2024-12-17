@@ -15,7 +15,7 @@ Arguments:
 """
 
 # disable typing ruff checks to support older Python versions
-# ruff: noqa: UP006 UP007 UP035
+# ruff: noqa: UP006 UP007 UP035 RUF100
 
 from __future__ import annotations
 
@@ -67,6 +67,7 @@ async def webhook(request: web.Request) -> web.Response:
     ------
     HTTPBadRequest
         If the event is incorrectly formatted to JSON.
+
     """
     try:
         payload = await request.json()
@@ -122,6 +123,7 @@ async def main(queue: asyncio.Queue, args: Dict[str, Any]) -> None:
     ------
     Exception
         If the configured certificate could not be loaded.
+
     """
     middlewares = []
     if args.get("token"):
@@ -135,8 +137,8 @@ async def main(queue: asyncio.Queue, args: Dict[str, Any]) -> None:
     context = None
     if "certfile" in args:
         certfile = args.get("certfile")
-        keyfile = args.get("keyfile", None)
-        password = args.get("password", None)
+        keyfile = args.get("keyfile")
+        password = args.get("password")
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
         try:
             context.load_cert_chain(certfile, keyfile, password)
