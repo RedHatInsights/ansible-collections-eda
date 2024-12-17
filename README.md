@@ -22,7 +22,7 @@ pip3 install -r ~/.ansible/collections/ansible_collections/redhatinsights/eda/re
 ## Usage
 
 To set up an integration with Red Hat Insights please follow
-[official documentation](https://access.redhat.com/documentation/en-us/red_hat_hybrid_cloud_console/2023/html/configuring_notifications_and_integrations_on_the_red_hat_hybrid_cloud_console/index).
+[official documentation](https://docs.redhat.com/en/documentation/red_hat_hybrid_cloud_console/1-latest/html/configuring_notifications_on_the_red_hat_hybrid_cloud_console/index).
 Use integration type "Event-Driven Ansible" from the dropdown.
 
 ```yaml
@@ -56,8 +56,8 @@ all:
 ### Integration with ServicNow Incidents
 
 Rulebook example of creating ServiceNow Incidents out of selected Insights events, including:
-* [Advisor recommendations](https://access.redhat.com/documentation/en-us/red_hat_insights/2023/html/assessing_rhel_configuration_issues_using_the_red_hat_insights_advisor_service/index)
-* newly detected [vulnerabilities](https://access.redhat.com/documentation/en-us/red_hat_insights/2023/html/assessing_and_monitoring_security_vulnerabilities_on_rhel_systems/index)
+* [Advisor recommendations](https://access.redhat.com/documentation/en-us/red_hat_insights/1-latest/html/assessing_rhel_configuration_issues_using_the_red_hat_insights_advisor_service/index)
+* newly detected [vulnerabilities](https://access.redhat.com/documentation/en-us/red_hat_insights/1-latest/html/assessing_and_monitoring_security_vulnerabilities_on_rhel_systems/index)
 * detected vulnerabilites with a known exploit
 * system compliance below threshold
 
