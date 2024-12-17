@@ -34,7 +34,7 @@ def test_insights_source_sanity(run_rulebook, current_collection):
     ]
 
     port = 5000
-    url = f"http://127.0.0.1:{port}/endpoint"
+    url = f"http://localhost:{port}/endpoint"
 
     env = os.environ.copy()
     env["ANSIBLE_COLLECTIONS_PATH"] = str(current_collection)
@@ -67,7 +67,7 @@ def test_insights_source_unauthorized(run_rulebook, current_collection):
     of the Insights source plugin.
     """
     port = 5000
-    url = f"http://127.0.0.1:{port}/endpoint"
+    url = f"http://localhost:{port}/endpoint"
 
     env = os.environ.copy()
     env["ANSIBLE_COLLECTIONS_PATH"] = str(current_collection)
