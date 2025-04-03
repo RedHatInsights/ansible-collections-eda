@@ -53,7 +53,7 @@ For inventory, you might create a file `inventory.yaml` containing:
 all:
 ```
 
-### Integration with ServicNow Incidents
+### Integration with ServiceNow Incidents
 
 Rulebook example of creating ServiceNow Incidents out of selected Insights events, including:
 * [Advisor recommendations](https://access.redhat.com/documentation/en-us/red_hat_insights/1-latest/html/assessing_rhel_configuration_issues_using_the_red_hat_insights_advisor_service/index)
