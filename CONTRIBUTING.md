@@ -21,6 +21,14 @@ Install test dependencies:
 pip install -r test_requirements.txt
 ```
 
+Make sure you have java installed (required by ansible-rulebook) and JAVA_HOME environment variable is set e.g.:
+```
+export JAVA_HOME=/usr/lib/jvm/openjdk-jre-bin-17
+```
+
+Check for more information in [Ansible Rulebook documentation](https://ansible.readthedocs.io/projects/rulebook/en/latest/installation.html).
+
+
 Run tests:
 ```
 # source venv/bin/activate
