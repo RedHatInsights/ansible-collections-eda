@@ -26,6 +26,57 @@ from typing import TYPE_CHECKING, Any, Dict, Union
 
 from aiohttp import web
 
+DOCUMENTATION = r"""
+---
+short_description: Receive Red Hat Insights events.
+description:
+    - An ansible-rulebook event source module for receiving Red Hat Insights events.
+options:
+    host:
+        description:
+            - The hostname to listen to. Set to 0.0.0.0 to listen on all  interfaces.
+        type: str
+        required: true
+        default: "0.0.0.0"
+    port:
+        description:
+            - The TCP port to listen to.
+        type: str
+        required: true
+        default: "5000"
+    token:
+        description:
+            - The optional authentication token expected from client.
+        type: str
+        required: false
+    certfile:
+        description:
+            - The optional path to a certificate file to enable TLS support.
+        type: str
+        required: false
+    keyfile:
+        description:
+            - The optional path to a key file to be used together with certfile.
+        type: str
+        required: false
+    password:
+        secription:
+            - The optional password to be used when loading the certificate chain.
+        type: str
+        required: false
+"""
+
+EXAMPLES = r"""
+- redhatinsights.eda.insights:
+    host: "0.0.0.0"
+    port: "5000"
+    token: "secret_token"
+    certfile: "/var/tmp/certfile"
+    keyfile:  "/var/tmp/keyfile"
+    password: "keyfile_password"
+"""
+
+
 if TYPE_CHECKING:
     from collections.abc import Callable
 
