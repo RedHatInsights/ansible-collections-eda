@@ -1,5 +1,21 @@
 # Event-Driven Ansible for Red Hat Insights Changes
 
+## [1.2.3]
+### Fixed
+ - link CHANGELOG file in README.md
+ - update building for Automation hub section in CONTRIBUTING.md
+ - add note in Publishing section regarding changelog mandatory updates
+ - add DOCUMENTATION docstring section into insights.py
+
+## [1.2.2]
+### Fixed
+ - github workflow update - upload-artifact@v4
+
+## [1.2.1]
+### Fixed
+ - fixed typo in README.md
+ - added missing steps in CONTRIBUTING.md - how to run tests
+
 ## [1.2.0]
 
 ### Added
