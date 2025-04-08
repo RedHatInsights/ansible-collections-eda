@@ -191,3 +191,7 @@ See [CONTRIBUTING](https://github.com/RedHatInsights/ansible-collections-eda/blo
 Apache 2.0
 
 See [LICENSE](https://github.com/RedHatInsights/ansible-collections-eda/blob/main/LICENSE) to see the full text.
+
+## Changelog
+
+See [CHANGELOG](https://github.com/RedHatInsights/ansible-collections-eda/blob/main/CHANGELOG.md) for changes in the source code repository.
