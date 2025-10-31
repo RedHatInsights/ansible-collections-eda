@@ -182,6 +182,49 @@ Playbooks:
     loop: "{{ ansible_eda.event.payload.events | default([]) }}"
 ```
 
+### Using Event-Driven Ansible and Ansible Automation Platform with the collection
+
+Event-Driven Ansible can be integrated with Ansible Automation Platform (AAP) to execute automation centrally through Automation Controller. When events are received from Red Hat Insights, a rulebook can trigger an existing job template in AAP using the `run_job_template` action.
+
+This allows you to:
+* Use AAP credential management, RBAC, logging, and reporting
+* Maintain automation workflows in Automation Controller
+* Run actions at scale across managed execution environments
+* Label runs automatically based on Insights events (AAP 2.6+) for improved traceability
+
+Prerequisites:
+* AAP 2.4+ (AAP 2.6+ for dynamic event-driven labels)
+* Event-Driven Ansible configured with credentials to access Automation Controller
+
+Note: The `redhat.insights_eda.insights` collection is included in the Default Decision Environment that ships with AAP, so no additional installation is required when running rulebooks in a standard EDA environment.
+
+*Example: Launching an AAP job template from an Insights event*
+```yaml
+---
+- name: Respond to Red Hat Insights events via AAP
+  hosts: localhost
+  sources:
+    - redhat.insights_eda.insights:
+        host: 0.0.0.0
+        port: 5000
+  rules:
+    - name: Handle detected malware events
+      condition:
+        event.payload.data.application == "malware-detection"
+        and event.payload.data.event_type == "detected-malware"
+      action:
+        run_job_template:
+          name: "handle-malware-detection"
+          organization: "Default"
+          job_args:
+            extra_vars: "{{ event.payload }}"
+          labels:
+            - "Activated by Red Hat Insights"
+            - "{{ event.payload.source.application.display_name | default(event.payload.application) }}"
+            - "{{ event.payload.source.event_type.display_name | default(event.payload.event_type) }}"
+            - "{{ event.payload.context.display_name | default('Activated by Red Hat Insights') }}"
+```
+
 ## Contributing
 
 See [CONTRIBUTING](https://github.com/RedHatInsights/ansible-collections-eda/blob/main/CONTRIBUTING.md) document.
