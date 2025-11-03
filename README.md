@@ -214,8 +214,8 @@ Note: The `redhat.insights_eda.insights` collection is included in the Default D
         and event.payload.data.event_type == "detected-malware"
       action:
         run_job_template:
-          name: "handle-malware-detection"
-          organization: "Default"
+          name: handle-malware-detection
+          organization: Default
           job_args:
             extra_vars: "{{ event.payload }}"
           labels:
