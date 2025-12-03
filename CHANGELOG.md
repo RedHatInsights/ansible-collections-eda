@@ -1,5 +1,9 @@
 # Event-Driven Ansible for Red Hat Insights Changes
 
+## [1.2.4]
+### Fixed
+ - Document integration of Event-Driven Ansible with AAP [RHINENG-20785]
+
 ## [1.2.3]
 ### Fixed
  - link CHANGELOG file in README.md
