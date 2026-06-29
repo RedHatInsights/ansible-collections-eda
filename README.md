@@ -56,8 +56,8 @@ all:
 ### Integration with ServiceNow Incidents
 
 Rulebook example of creating ServiceNow Incidents out of selected Insights events, including:
-* [Advisor recommendations](https://access.redhat.com/documentation/en-us/red_hat_insights/1-latest/html/assessing_rhel_configuration_issues_using_the_red_hat_insights_advisor_service/index)
-* newly detected [vulnerabilities](https://access.redhat.com/documentation/en-us/red_hat_insights/1-latest/html/assessing_and_monitoring_security_vulnerabilities_on_rhel_systems/index)
+* [Advisor recommendations](https://docs.redhat.com/en/documentation/red_hat_lightspeed/1-latest/html-single/assessing_rhel_configuration_issues_by_using_the_red_hat_lightspeed_advisor_service/index)
+* newly detected [vulnerabilities](https://docs.redhat.com/en/documentation/red_hat_lightspeed/1-latest/html-single/assessing_and_monitoring_security_vulnerabilities_on_rhel_systems/index)
 * detected vulnerabilites with a known exploit
 * system compliance below threshold
 
